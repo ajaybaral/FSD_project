@@ -1,0 +1,71 @@
+<div class="landing-container">
+  <!-- Navigation Bar -->
+  <header class="header">
+    <div class="brand">
+      <span class="brand-text">SportsHub</span>
+    </div>
+    <nav class="nav-links">
+      <a class="nav-link active" href="#">Home</a>
+      <div *ngIf="isAuthenticated" class="auth-info">
+        <span class="welcome-text">Welcome, {{ username }}!</span>
+        <button class="nav-link logout-btn" (click)="logout()">Logout</button>
+      </div>
+      <a
+        *ngIf="!isAuthenticated"
+        class="nav-link login-btn"
+        (click)="navigateToLogin()"
+        >Login</a
+      >
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="hero-banner">
+      <div class="content-wrapper">
+        <!-- Hero Section -->
+        <section class="hero-section">
+          <div class="hero-text">
+            <h1 class="hero-title">
+              Welcome to <span class="brand-name">SportsHub</span>
+            </h1>
+            <p class="hero-subtitle">
+              Your Ultimate Sports Management Platform
+            </p>
+          </div>
+          <!-- Feature Card -->
+          <div class="card-area">
+            <div class="feature-card" (click)="navigateToForm()">
+              <div class="feature-icon">
+                <span class="icon">🏆</span>
+              </div>
+              <div class="feature-text">
+                <h3>Join Sports Events</h3>
+                <p>
+                  Participate in various sports events and competitions across
+                  the platform
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-info">
+        <p>© 2025 Participation. All rights reserved.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#">Terms of Service</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+      <div class="footer-credit">
+        <p>Made with ❤️ by B1-Group 2</p>
+      </div>
+    </div>
+  </footer>
+</div>

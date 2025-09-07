@@ -1,0 +1,77 @@
+<div class="dashboard-wrapper">
+  <!-- Header -->
+  <nav class="navbar">
+    <div class="brand">SportsHub</div>
+    <div class="nav-buttons">
+      <button class="nav-btn" (click)="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container">
+    <!-- Welcome Section -->
+    <div class="welcome-card">
+      <h1>Welcome to Dashboard</h1>
+      <div class="action-buttons">
+        <button class="action-btn" (click)="router.navigate(['/form'])">
+          Participate
+        </button>
+        <button class="action-btn" (click)="logout()">Logout</button>
+      </div>
+    </div>
+
+    <!-- User Welcome Message -->
+    <div class="welcome-message">
+      <h2>Welcome participant!!!</h2>
+    </div>
+
+    <!-- Available Events Section -->
+    <div class="events-section">
+      <div class="section-header">
+        <h2>Available Events</h2>
+        <span class="scroll-indicator">← Scroll →</span>
+      </div>
+      <div class="events-grid">
+        <div class="event-card" *ngFor="let event of availableEvents">
+          <h3>{{ event.name }}</h3>
+          <div class="event-details">
+            <p><strong>Type:</strong> {{ event.type }}</p>
+            <p><strong>Date:</strong> {{ event.date }}</p>
+            <p><strong>Head:</strong> {{ event.head }}</p>
+            <p><strong>Location:</strong> {{ event.location }}</p>
+            <p><strong>Participants:</strong> {{ event.participants }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Participated Events Section -->
+    <div class="events-section">
+      <div class="section-header">
+        <h2>Participated Events</h2>
+        <span class="scroll-indicator">← Scroll →</span>
+      </div>
+      <div class="events-grid">
+        <div class="event-card" *ngFor="let event of participatedEvents">
+          <h3>{{ event.name }}</h3>
+          <div class="event-details">
+            <p><strong>Type:</strong> {{ event.type }}</p>
+            <p><strong>Date:</strong> {{ event.date }}</p>
+            <p><strong>Head:</strong> {{ event.head }}</p>
+            <p><strong>Location:</strong> {{ event.location }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Login Details -->
+    <div class="login-details">
+      <h2>Login Information</h2>
+      <div class="info-card">
+        <p><strong>Username:</strong> {{ userData.username }}</p>
+        <p><strong>Role:</strong> {{ userData.role }}</p>
+        <p><strong>Login Status:</strong> Active</p>
+      </div>
+    </div>
+  </div>
+</div>

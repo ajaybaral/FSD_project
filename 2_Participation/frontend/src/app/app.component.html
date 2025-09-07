@@ -1,0 +1,40 @@
+﻿<div class="app-container">
+  <!-- Show header only for non-landing pages -->
+  <header
+    class="app-header"
+    *ngIf="!isAuthenticated || (isAuthenticated && router.url !== '/')"
+  >
+    <div class="header-content">
+      <h1>🎯 Event Participation System</h1>
+      <div class="auth-info" *ngIf="isAuthenticated">
+        <span class="welcome-text">Welcome, {{ username }}!</span>
+        <button class="btn btn-logout" (click)="logout()">Logout</button>
+      </div>
+      <div class="auth-info" *ngIf="!isAuthenticated">
+        <span class="auth-text">Please authenticate to participate</span>
+        <button class="btn btn-login" (click)="goToRegistration()">
+          Go to Login
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main content area -->
+  <div *ngIf="!isAuthenticated" class="auth-required">
+    <div class="auth-card">
+      <h2>🔐 Authentication Required</h2>
+      <p>
+        You need to login through the registration service to participate in
+        events.
+      </p>
+      <button class="btn btn-primary" (click)="goToRegistration()">
+        Go to Registration Service
+      </button>
+    </div>
+  </div>
+
+  <!-- Authenticated content - let components handle their own layout -->
+  <div *ngIf="isAuthenticated" class="authenticated-content">
+    <router-outlet />
+  </div>
+</div>

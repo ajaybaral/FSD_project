@@ -1,0 +1,102 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database for Registration Service
+  registration-db:
+    image: postgres:15
+    container_name: registration-db
+    environment:
+      POSTGRES_DB: registrationdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+    ports:
+      - "5433:5432"
+    volumes:
+      - registration_data:/var/lib/postgresql/data
+    networks:
+      - microservices-network
+
+  # PostgreSQL Database for Participation Service
+  participation-db:
+    image: postgres:15
+    container_name: participation-db
+    environment:
+      POSTGRES_DB: participationdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+    ports:
+      - "5432:5432"
+    volumes:
+      - participation_data:/var/lib/postgresql/data
+    networks:
+      - microservices-network
+
+  # Registration Service
+  registration-service:
+    build: ../1_Registration/fsd
+    container_name: registration-service
+    ports:
+      - "8081:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - DB_HOST=registration-db
+      - DB_PORT=5432
+      - DB_NAME=registrationdb
+      - DB_USER=postgres
+      - DB_PASSWORD=root
+      - PARTICIPATION_SERVICE_URL=http://participation-service:8080
+    depends_on:
+      - registration-db
+    networks:
+      - microservices-network
+
+  # Participation Service
+  participation-service:
+    build: ../2_Participation/backend
+    container_name: participation-service
+    ports:
+      - "8082:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - DB_HOST=participation-db
+      - DB_PORT=5432
+      - DB_NAME=participationdb
+      - DB_USER=postgres
+      - DB_PASSWORD=root
+      - REGISTRATION_SERVICE_URL=http://registration-service:8080
+    depends_on:
+      - participation-db
+    networks:
+      - microservices-network
+
+  # Registration Frontend
+  registration-frontend:
+    build: ../1_Registration/fsd-frontend
+    container_name: registration-frontend
+    ports:
+      - "4200:80"
+    environment:
+      - REGISTRATION_API_URL=http://localhost:8081
+      - PARTICIPATION_API_URL=http://localhost:8082
+    networks:
+      - microservices-network
+
+  # Participation Frontend
+  participation-frontend:
+    build: ../2_Participation/frontend
+    container_name: participation-frontend
+    ports:
+      - "4201:80"
+    environment:
+      - PARTICIPATION_API_URL=http://localhost:8082
+      - REGISTRATION_API_URL=http://localhost:8081
+    networks:
+      - microservices-network
+
+volumes:
+  registration_data:
+  participation_data:
+
+networks:
+  microservices-network:
+    driver: bridge

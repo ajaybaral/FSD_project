@@ -1,0 +1,196 @@
+<div class="form-container">
+  <div class="form-card">
+    <h2 class="form-title">Participant Registration</h2>
+
+    <form
+      [formGroup]="registrationForm"
+      (ngSubmit)="onSubmit()"
+      class="registration-form"
+    >
+<!-- Username -->
+<div class="form-group mb-3">
+  <label for="username">Username (Email)</label>
+  <input
+    type="text"
+    id="username"
+    class="form-control"
+    formControlName="username"
+    readonly
+  />
+</div>
+
+<!-- Participation ID -->
+<div class="form-group mb-3" *ngIf="registrationForm.get('p_ID')?.value">
+  <label for="p_ID">Participation ID</label>
+  <input
+    type="text"
+    id="p_ID"
+    class="form-control"
+    formControlName="p_ID"
+    readonly
+  />
+</div>
+
+
+
+      <!-- Referral Source Dropdown -->
+      <div class="form-group">
+        <label for="referralSource">Referral Source</label>
+        <select
+          id="referralSource"
+          formControlName="referralSource"
+          class="form-control"
+        >
+          <option value="">Select Referral Source</option>
+          <option *ngFor="let source of referralSources" [value]="source">
+            {{ source }}
+          </option>
+        </select>
+        <div
+          *ngIf="
+            registrationForm.get('referralSource')?.invalid &&
+            registrationForm.get('referralSource')?.touched
+          "
+          class="error-message"
+        >
+          <small>Referral source is required</small>
+        </div>
+      </div>
+
+      <!-- Type Dropdown -->
+      <div class="form-group">
+        <label for="type">Type</label>
+        <select id="type" formControlName="type" class="form-control">
+          <option value="">Select Type</option>
+          <option *ngFor="let type of types" [value]="type">
+            {{ type }}
+          </option>
+        </select>
+        <div
+          *ngIf="
+            registrationForm.get('type')?.invalid &&
+            registrationForm.get('type')?.touched
+          "
+          class="error-message"
+        >
+          <small>Type is required</small>
+        </div>
+      </div>
+
+      <!-- Age Field -->
+      <div class="form-group">
+        <label for="age">Age</label>
+        <input
+          type="number"
+          id="age"
+          formControlName="age"
+          class="form-control"
+          min="15"
+          max="120"
+        />
+        <div
+          *ngIf="
+            registrationForm.get('age')?.invalid &&
+            registrationForm.get('age')?.touched
+          "
+          class="error-message"
+        >
+          <small>Age is required and must be 15 or older</small>
+        </div>
+      </div>
+
+      <!-- Gender Radio Buttons -->
+      <div class="form-group">
+        <label>Gender</label>
+        <div class="radio-group">
+          <label class="radio-label">
+            <input type="radio" formControlName="gender" value="Male" />
+            <span>Male</span>
+          </label>
+          <label class="radio-label">
+            <input type="radio" formControlName="gender" value="Female" />
+            <span>Female</span>
+          </label>
+          <label class="radio-label">
+            <input type="radio" formControlName="gender" value="Other" />
+            <span>Other</span>
+          </label>
+        </div>
+        <div
+          *ngIf="
+            registrationForm.get('gender')?.invalid &&
+            registrationForm.get('gender')?.touched
+          "
+          class="error-message"
+        >
+          <small>Gender is required</small>
+        </div>
+      </div>
+
+      <!-- Event Name Dropdown -->
+      <div class="form-group">
+        <label for="eventName">Event Name</label>
+        <select id="eventName" formControlName="eventName" class="form-control">
+          <option value="">Select Event</option>
+          <option *ngFor="let event of eventNames" [value]="event">
+            {{ event }}
+          </option>
+        </select>
+        <div
+          *ngIf="
+            registrationForm.get('eventName')?.invalid &&
+            registrationForm.get('eventName')?.touched
+          "
+          class="error-message"
+        >
+          <small>Event selection is required</small>
+        </div>
+      </div>
+
+      <!-- Department Dropdown -->
+      <div class="form-group">
+        <label for="department">Department</label>
+        <select
+          id="department"
+          formControlName="department"
+          class="form-control"
+        >
+          <option value="">Select Department</option>
+          <option *ngFor="let dept of departments" [value]="dept">
+            {{ dept }}
+          </option>
+        </select>
+        <div
+          *ngIf="
+            registrationForm.get('department')?.invalid &&
+            registrationForm.get('department')?.touched
+          "
+          class="error-message"
+        >
+          <small>Department selection is required</small>
+        </div>
+      </div>
+
+      <!-- Medical Condition Field -->
+      <div class="form-group">
+        <label for="medicalCondition">Medical Condition</label>
+        <textarea
+          id="medicalCondition"
+          formControlName="medicalCondition"
+          class="form-control"
+          rows="3"
+          placeholder="Please mention any medical conditions (if applicable)"
+        ></textarea>
+      </div>
+
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        class="btn btn-primary btn-block"
+        [disabled]="registrationForm.invalid || isSubmitting"
+      >
+        {{ isSubmitting ? "Submitting..." : "Submit" }}
+      </button>
+    </form>
+  </div>
+</div>

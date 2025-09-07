@@ -1,0 +1,110 @@
+<div class="page-container">
+  <!-- Header -->
+  <header class="header">
+    <div class="brand">
+      <span class="brand-text">SportsHub</span>
+    </div>
+    <nav class="nav-links">
+      <a routerLink="/" class="nav-link">Home</a>
+      <a
+        routerLink="/auth/login"
+        routerLinkActive="active"
+        class="nav-link login-btn"
+        >Login</a
+      >
+    </nav>
+  </header>
+
+  <!-- Login Container -->
+  <main class="login-container">
+    <div class="login-form-wrapper">
+      <h1 class="login-title">Login to your account</h1>
+
+      <div *ngIf="errorMessage" class="alert">
+        {{ errorMessage }}
+      </div>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            formControlName="username"
+            [ngClass]="{
+              error:
+                formControls['username'].invalid &&
+                (formControls['username'].dirty ||
+                  formControls['username'].touched)
+            }"
+            placeholder="Enter your username"
+          />
+          <div
+            *ngIf="
+              formControls['username'].invalid &&
+              (formControls['username'].dirty ||
+                formControls['username'].touched)
+            "
+            class="error-message"
+          >
+            <div *ngIf="formControls['username'].errors?.['required']">
+              Username is required
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            formControlName="password"
+            [ngClass]="{
+              error:
+                formControls['password'].invalid &&
+                (formControls['password'].dirty ||
+                  formControls['password'].touched)
+            }"
+            placeholder="Enter your password"
+          />
+          <div
+            *ngIf="
+              formControls['password'].invalid &&
+              (formControls['password'].dirty ||
+                formControls['password'].touched)
+            "
+            class="error-message"
+          >
+            <div *ngIf="formControls['password'].errors?.['required']">
+              Password is required
+            </div>
+            <div *ngIf="formControls['password'].errors?.['minlength']">
+              Password must be at least 6 characters
+            </div>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="login-button"
+          [disabled]="loginForm.invalid || isSubmitting"
+        >
+          {{ isSubmitting ? "Logging in..." : "Login" }}
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-credit">
+        <p>© 2025 Participation. All rights reserved.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#">Terms of Service</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+</div>

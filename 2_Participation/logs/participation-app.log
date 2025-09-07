@@ -1,0 +1,40 @@
+2025-04-16T20:38:02.586+05:30  INFO 30292 --- [Participation] [main] c.e.P.ParticipationApplication           : Starting ParticipationApplication using Java 17.0.14 with PID 30292 (E:\TCET\FSD\FSD-Participation\backend\target\classes started by admin in E:\TCET\FSD\FSD-Participation)
+2025-04-16T20:38:02.589+05:30 DEBUG 30292 --- [Participation] [main] c.e.P.ParticipationApplication           : Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-16T20:38:02.629+05:30  INFO 30292 --- [Participation] [main] c.e.P.ParticipationApplication           : No active profile set, falling back to 1 default profile: "default"
+2025-04-16T20:38:05.192+05:30  INFO 30292 --- [Participation] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-04-16T20:38:05.349+05:30  INFO 30292 --- [Participation] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 117 ms. Found 2 JPA repository interfaces.
+2025-04-16T20:38:07.432+05:30  INFO 30292 --- [Participation] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-04-16T20:38:07.466+05:30  INFO 30292 --- [Participation] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-04-16T20:38:07.467+05:30  INFO 30292 --- [Participation] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-04-16T20:38:07.630+05:30  INFO 30292 --- [Participation] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-04-16T20:38:07.632+05:30  INFO 30292 --- [Participation] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4824 ms
+2025-04-16T20:38:08.010+05:30  INFO 30292 --- [Participation] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-04-16T20:38:08.644+05:30  INFO 30292 --- [Participation] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@626d2016
+2025-04-16T20:38:08.646+05:30  INFO 30292 --- [Participation] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-04-16T20:38:08.742+05:30  INFO 30292 --- [Participation] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-04-16T20:38:08.893+05:30  INFO 30292 --- [Participation] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.11.Final
+2025-04-16T20:38:08.977+05:30  INFO 30292 --- [Participation] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-04-16T20:38:09.732+05:30  INFO 30292 --- [Participation] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-04-16T20:38:09.909+05:30  INFO 30292 --- [Participation] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.4
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-04-16T20:38:11.906+05:30  INFO 30292 --- [Participation] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-04-16T20:38:11.915+05:30  INFO 30292 --- [Participation] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-04-16T20:38:12.752+05:30  WARN 30292 --- [Participation] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-04-16T20:38:12.962+05:30  INFO 30292 --- [Participation] [main] o.s.v.b.OptionalValidatorFactoryBean     : Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-04-16T20:38:14.019+05:30  INFO 30292 --- [Participation] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-04-16T20:38:14.051+05:30  INFO 30292 --- [Participation] [main] c.e.P.ParticipationApplication           : Started ParticipationApplication in 12.314 seconds (process running for 12.919)
+2025-04-16T20:39:20.815+05:30  INFO 30292 --- [Participation] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-04-16T20:39:20.821+05:30  INFO 30292 --- [Participation] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-04-16T20:39:20.824+05:30  INFO 30292 --- [Participation] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2025-04-16T20:39:21.127+05:30  INFO 30292 --- [Participation] [http-nio-8080-exec-2] c.e.P.Controller.RegisterController      : Received login request with username: jane.smith1, password: password456
+2025-04-16T20:39:21.472+05:30  INFO 30292 --- [Participation] [http-nio-8080-exec-2] c.e.P.Controller.RegisterController      : Stored password: password456
+2025-04-16T20:39:25.176+05:30  INFO 30292 --- [Participation] [http-nio-8080-exec-7] c.e.P.C.ParticipationController          : Fetching all participation data...
+2025-04-16T20:39:25.221+05:30  INFO 30292 --- [Participation] [http-nio-8080-exec-7] c.e.P.C.ParticipationController          : Successfully fetched participation data.
+2025-04-16T20:39:30.050+05:30  INFO 30292 --- [Participation] [http-nio-8080-exec-9] c.e.P.C.ParticipationController          : Updating participation with ID: 2
+2025-04-16T20:39:30.122+05:30  INFO 30292 --- [Participation] [http-nio-8080-exec-9] c.e.P.C.ParticipationController          : Updated participation with ID: 2
