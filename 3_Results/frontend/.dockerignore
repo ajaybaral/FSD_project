@@ -1,0 +1,13 @@
+node_modules
+/dist
+.git
+.vscode
+.angular
+Dockerfile
+nginx.conf
+npm-debug.log*
+.yarn-cache
+pnpm-lock.yaml
+.yarn
+**/*.swp
+
