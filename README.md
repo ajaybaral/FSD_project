@@ -44,8 +44,12 @@ FSD-Merged/
 │       ├── package.json              # Node Dependencies
 │       └── Dockerfile                # Docker Configuration
 │
+├── 3_Results/                        # Results Microservice (integrated)
+│   ├── backend/                      # Spring Boot Backend (port 5005)
+│   └── frontend/                     # Angular Frontend (port 4202)
+│
 ├── integration-config/               # Integration Configuration
-│   └── docker-compose.yml           # Docker Compose Setup
+│   └── docker-compose.yml            # Docker Compose Setup (all three services)
 ├── shared-config/                    # Shared Configuration Files
 ├── setup-integration.bat            # Windows Setup Script
 ├── start-system.bat                 # Windows Start Script
@@ -73,7 +77,7 @@ cd FSD-Merged
 
 #### 2. Start Registration Service
 
-**Backend (Port 8080):**
+**Backend (Port 8081):**
 
 ```bash
 cd 1_Registration/fsd
@@ -91,7 +95,7 @@ ng serve --port 4200
 
 #### 3. Start Participation Service
 
-**Backend (Port 8081):**
+**Backend (Port 8082):**
 
 ```bash
 cd 2_Participation/backend
@@ -100,6 +104,24 @@ mvn spring-boot:run
 ```
 
 **Frontend (Port 4201):**
+
+#### 4. Start Results Service
+
+**Backend (Port 5005):**
+
+```bash
+cd 3_Results/backend
+mvn clean install
+mvn spring-boot:run
+```
+
+**Frontend (Port 4202):**
+
+```bash
+cd 3_Results/frontend
+npm install
+ng serve --port 4202
+```
 
 ```bash
 cd 2_Participation/frontend
@@ -137,7 +159,7 @@ ng serve --port 4201
 
 ```bash
 cd integration-config
-docker-compose up --build
+docker compose up --build -d
 ```
 
 ## 🌐 Service URLs
@@ -145,9 +167,11 @@ docker-compose up --build
 | Service           | Component   | URL                   | Description               |
 | ----------------- | ----------- | --------------------- | ------------------------- |
 | **Registration**  | Frontend    | http://localhost:4200 | User registration & login |
-| **Registration**  | Backend API | http://localhost:8080 | Authentication API        |
+| **Registration**  | Backend API | http://localhost:8081 | Authentication API        |
 | **Participation** | Frontend    | http://localhost:4201 | Event participation       |
-| **Participation** | Backend API | http://localhost:8081 | Participation API         |
+| **Participation** | Backend API | http://localhost:8082 | Participation API         |
+| **Results**       | Frontend    | http://localhost:4202 | Results UI                |
+| **Results**       | Backend API | http://localhost:5005 | Results API               |
 
 ## 🔧 Configuration
 
@@ -174,21 +198,22 @@ spring.datasource.password=password
 spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
 ```
 
-### Cross-Origin Configuration
+### Cross-Service & CORS Configuration
 
-Both services are configured to allow cross-origin requests:
+- Registration Frontend (4200) ↔ Registration Backend (8081)
+- Participation Frontend (4201) ↔ Participation Backend (8082)
+- Results Frontend (4202) ↔ Results Backend (5005)
+- Registration ↔ Participation integration
+- Results → Participation lookup for participant validation
 
-- Registration Frontend (4200) ↔ Registration Backend (8080)
-- Participation Frontend (4201) ↔ Participation Backend (8081)
-- Cross-service communication between Registration and Participation
-
-## 🔐 Authentication Flow
+## 🔐 Authentication & Integration Flow
 
 1. **User Registration/Login** → Registration Service (Port 4200)
 2. **JWT Token Generation** → Registration Backend (Port 8080)
 3. **Redirect to Participation** → Participation Service (Port 4201)
 4. **Token Validation** → Cross-service authentication
-5. **Access Participation Features** → Authenticated user experience
+5. **Participation** → User participates in events
+6. **Results** → When posting a result, Results backend validates `pId` against Participation `/data/{p_id}` before saving
 
 ### Authentication Integration
 
@@ -231,6 +256,8 @@ const username = localStorage.getItem("username");
 4. **Automatic redirect** → http://localhost:4201 (with authentication)
 5. **Access participation features** → Fill out event participation form
 6. **Submit form** → Confirm successful participation
+7. **Open Results** → http://localhost:4202
+8. **Create a result** with a valid Participation `pId` (from Participation service). The Results backend will reject invalid `pId`s.
 
 ### API Testing
 
@@ -256,6 +283,24 @@ Content-Type: application/json
 ```
 
 **Participation Endpoints:**
+**Results Endpoints:**
+
+```bash
+# List results
+GET http://localhost:5005/api/results
+
+# Create result (pId must exist in Participation)
+POST http://localhost:5005/api/results
+Content-Type: application/json
+{
+  "pId": "123",           // participation id
+  "name": "John Doe",
+  "position": "1st",
+  "winningAmount": 1000,
+  "fId": "F001",
+  "eventId": "E100"
+}
+```
 
 ```bash
 # Submit participation
@@ -333,16 +378,16 @@ docker run -p 4201:80 participation-frontend
 
 ```bash
 # Start all services
-docker-compose up
+docker compose up
 
 # Start in background
-docker-compose up -d
+docker compose up -d
 
 # Stop all services
-docker-compose down
+docker compose down
 
 # Rebuild and start
-docker-compose up --build
+docker compose up --build
 ```
 
 ## 🔌 Adding New Microservices
@@ -590,5 +635,3 @@ For support and questions:
 8. **Caching Layer** → Redis for session management
 
 Happy coding! 🚀
-#   F S D _ p r o j e c t  
- 
